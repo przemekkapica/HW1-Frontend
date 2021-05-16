@@ -1,33 +1,49 @@
 import { Component, OnInit } from '@angular/core';
 import { Order } from '../../model/order';
 import { OrderService } from '../../services/order.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { MenuItem} from 'primeng/api';
 
 @Component({
   selector: 'app-orders-view',
   templateUrl: './orders-view.component.html',
-  styleUrls: ['./orders-view.component.scss']
+  styleUrls: ['./orders-view.component.scss'],
+  providers: [DialogService]
 })
 export class OrdersViewComponent implements OnInit {
 
-  orders: Order[] = [
-    {id: 1, movieId: 1, date: "2020-03-21", netAmount: 12, discount: 12, gross: 20},
-    {id: 1, movieId: 1, date: "2020-03-21", netAmount: 12, discount: 12, gross: 20},
-    {id: 1, movieId: 1, date: "2020-03-21", netAmount: 12, discount: 12, gross: 20},
-  ];
+  orders: Order[] = [];
 
-  constructor(private orderService: OrderService) { }
+  displayUpdateDialog: boolean = false;
+
+  selectedOrderIndex: number = 0;
+
+  constructor(private orderService: OrderService, public dialogService: DialogService) { }
 
   ngOnInit(): void {
     this.getOrders();
-    console.log(this.orders);
+  }
+
+  showUpdateDialog(index: number): void {    
+    console.log(index);
+      this.selectedOrderIndex = index;
+      this.displayUpdateDialog = true;
+  }
+
+  hideUpdateDialog(): void {
+    this.displayUpdateDialog = false;
   }
 
   private getOrders() {
-      this.orderService.getOrders().subscribe((data) => {
-      console.log(data);
-      
-     //  this.orders = data;
-    });
+      this.orderService.getOrders().subscribe((data) => this.orders = data);      
+  }
+
+  getOrderIdByIndex(index: number) {
+    return this.orders[index].id;
+  }
+
+  deleteOrder(orderId: number) {
+    this.orderService.deleteOrder(orderId);
   }
 
 }

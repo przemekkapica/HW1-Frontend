@@ -13,16 +13,36 @@
             <th></th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-order>
+    <ng-template pTemplate="body" let-order let-i="rowIndex">
         <tr>
             <td>{{order.id}}</td>
             <td>{{order.movieId}}</td>
             <td>{{order.date}}</td>
-            <td>{{order.netAmmount}}</td>
+            <td>{{order.netAmount}}</td>
             <td>{{order.discount}}</td>
             <td>{{order.gross}}</td>
-            <td><button pButton pRipple type="button" label="Update" class="p-button-outlined p-button-secondaty"></button></td>
-            <td><button pButton pRipple type="button" label="Delete" class="p-button-outlined p-button-danger"></button></td>
+            <td><button pButton pRipple type="button" label="Update" class="p-button-rounded p-button-warning"  (click)="showUpdateDialog(i)"></button></td>
+            <td><button pButton pRipple type="button" label="Delete" class="p-button-rounded p-button-danger" (click)="deleteOrder(getOrderIdByIndex(i))"></button></td>
         </tr>
     </ng-template>
 </p-table>
+
+
+<p-dialog header="Update order" [(visible)]="displayUpdateDialog" [style]="{width: '70vw'}" [baseZIndex]="10000" [modal]="true">
+
+    <p><b>Movie ID</b></p>
+    <input type="text" pInputText [(ngModel)]="orders[selectedOrderIndex].movieId"><br>
+    <p><b>Date</b></p>
+    <input type="text" pInputText [(ngModel)]="orders[selectedOrderIndex].date"><br>
+    <p><b>Net amount</b></p>
+    <input type="text" pInputText [(ngModel)]="orders[selectedOrderIndex].netAmount"><br>
+    <p><b>Discount</b></p>
+    <input type="text" pInputText [(ngModel)]="orders[selectedOrderIndex].discount"><br>
+    <p><b>Gross</b></p>
+    <input type="text" pInputText [(ngModel)]="orders[selectedOrderIndex].gross"><br><br>
+    <button pButton pRipple type="button" label="Submit" class="p-button-outlined" (click)="hideUpdateDialog()"></button>
+
+    <!-- <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="displayBasic=false" p="Ok" styleClass="p-button-text"></p-button>
+    </ng-template> -->
+</p-dialog>

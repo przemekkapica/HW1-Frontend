@@ -23,15 +23,27 @@ export class OrderService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-  
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-  
-      // TODO: better job of transforming error for user consumption
+      console.error(error); 
       console.log(`${operation} failed: ${error.message}`);
-  
-      // Let the app keep running by returning an empty result.
+
       return of(result as T);
     };
   }
+
+  deleteOrder(orderId: number) {
+    console.log(this.ordersUrl + `/${orderId}`);
+    this.http.delete(this.ordersUrl + `/${orderId}`).subscribe(() => console.log("Order deleted"));
+  }
+
+  addNewOrder(movieId: number) {
+    var orderBody = {
+      movieId: movieId,
+      date: "2021-05-10",
+      netAmount:  Math.floor(Math.random() * Math.floor(600)),
+      discount: Math.floor(Math.random() * Math.floor(30)),
+      gross: Math.floor(Math.random() * Math.floor(1000)),
+    }
+    this.http.post(this.ordersUrl, orderBody).subscribe(() => console.log("Order added"));
+  }
+
 }
