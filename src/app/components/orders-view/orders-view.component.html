@@ -1,0 +1,28 @@
+<h2>ORDERS</h2>
+
+<p-table [value]="orders">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID</th>
+            <th>Movie ID</th>
+            <th>Date</th>
+            <th>Net ammount</th>
+            <th>Discount</th>
+            <th>Gross</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-order>
+        <tr>
+            <td>{{order.id}}</td>
+            <td>{{order.movieId}}</td>
+            <td>{{order.date}}</td>
+            <td>{{order.netAmmount}}</td>
+            <td>{{order.discount}}</td>
+            <td>{{order.gross}}</td>
+            <td><button pButton pRipple type="button" label="Update" class="p-button-outlined p-button-secondaty"></button></td>
+            <td><button pButton pRipple type="button" label="Delete" class="p-button-outlined p-button-danger"></button></td>
+        </tr>
+    </ng-template>
+</p-table>
