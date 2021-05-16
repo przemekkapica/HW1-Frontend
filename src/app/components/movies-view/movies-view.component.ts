@@ -6,36 +6,38 @@ import { OrderService } from 'src/app/services/order.service';
 @Component({
   selector: 'app-movies-view',
   templateUrl: './movies-view.component.html',
-  styleUrls: ['./movies-view.component.scss']
+  styleUrls: ['./movies-view.component.scss'],
+  providers: [MovieService, OrderService]
 })
 export class MoviesViewComponent implements OnInit {
 
-  movies: Movie[] = [
-    {id: 1, name: 'film1', date: "2020-03-21", price: 12, ranking: 12, genre: 'comedy'},
-    {id: 1, name: 'film2', date: "2020-03-21", price: 12, ranking: 12, genre: 'comedy'},
-    {id: 1, name: 'film3', date: "2020-03-21", price: 12, ranking: 12, genre: 'comedy'},
-  ];
+  movies: Movie[] = [];
 
-  constructor(private orderService: OrderService) { }
+  constructor(private orderService: OrderService, private movieService: MovieService) { }
 
   ngOnInit(): void {
-    this.getOrders();
+    this.getMovies();
     console.log(this.movies);
   }
 
-  private getOrders() {
-      // this.movieService.getOrders().subscribe((data) => {
-      // console.log(data);
+  private getMovies() {
+      this.movieService.getAllMovies().subscribe((data) => {
+      console.log(data);
       
-     //  this.orders = data;
-    // });
+      this.movies = data;
+    });
   }
 
   addNewOrder(movieId: number): void {
     this.orderService.addNewOrder(movieId);
+    this.refresh();
   }
 
   getMovieIdByIndex(index: number) {
     return this.movies[index].id;
+  }
+
+  refresh(): void {
+    window.location.reload();
   }
 }

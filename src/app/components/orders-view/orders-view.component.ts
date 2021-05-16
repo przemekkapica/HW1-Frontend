@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Order } from '../../model/order';
 import { OrderService } from '../../services/order.service';
 import { DialogService } from 'primeng/dynamicdialog';
-import { MenuItem} from 'primeng/api';
 
 @Component({
   selector: 'app-orders-view',
@@ -18,6 +17,8 @@ export class OrdersViewComponent implements OnInit {
 
   selectedOrderIndex: number = 0;
 
+  editedOrder: Order = {id: -1};
+
   constructor(private orderService: OrderService, public dialogService: DialogService) { }
 
   ngOnInit(): void {
@@ -26,8 +27,9 @@ export class OrdersViewComponent implements OnInit {
 
   showUpdateDialog(index: number): void {    
     console.log(index);
-      this.selectedOrderIndex = index;
-      this.displayUpdateDialog = true;
+    this.selectedOrderIndex = index;
+    this.editedOrder = this.orders[index];
+    this.displayUpdateDialog = true;
   }
 
   hideUpdateDialog(): void {
@@ -38,12 +40,27 @@ export class OrdersViewComponent implements OnInit {
       this.orderService.getOrders().subscribe((data) => this.orders = data);      
   }
 
+  submitOrderEdition(): void {
+    this.hideUpdateDialog();
+    this.updateOrder(this.editedOrder);
+  }
+
   getOrderIdByIndex(index: number) {
     return this.orders[index].id;
   }
 
   deleteOrder(orderId: number) {
     this.orderService.deleteOrder(orderId);
+    this.refresh();
+  }
+
+  updateOrder(order: Order) {
+    this.orderService.updateOrder(order);
+    this.refresh();
+  }
+
+  refresh(): void {
+    window.location.reload();
   }
 
 }

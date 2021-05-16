@@ -1,22 +1,24 @@
-<h2>ORDERS</h2>
+<h1 style="font-weight: 300; font-size: 35px;">Your orders</h1>
 
 <p-table [value]="orders">
     <ng-template pTemplate="header">
         <tr>
-            <th>ID</th>
+            <th style="width: 4rem;">ID</th>
             <th>Movie ID</th>
+            <!-- <th>Movie name</th> -->
             <th>Date</th>
             <th>Net ammount</th>
             <th>Discount</th>
             <th>Gross</th>
-            <th></th>
-            <th></th>
+            <th style="width: 7rem;"></th>
+            <th style="width: 7rem;"></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-order let-i="rowIndex">
         <tr>
             <td>{{order.id}}</td>
             <td>{{order.movieId}}</td>
+            <!-- <td>{{order.movieId}}</td> -->
             <td>{{order.date}}</td>
             <td>{{order.netAmount}}</td>
             <td>{{order.discount}}</td>
@@ -30,17 +32,23 @@
 
 <p-dialog header="Update order" [(visible)]="displayUpdateDialog" [style]="{width: '70vw'}" [baseZIndex]="10000" [modal]="true">
 
-    <p><b>Movie ID</b></p>
-    <input type="text" pInputText [(ngModel)]="orders[selectedOrderIndex].movieId"><br>
-    <p><b>Date</b></p>
-    <input type="text" pInputText [(ngModel)]="orders[selectedOrderIndex].date"><br>
-    <p><b>Net amount</b></p>
-    <input type="text" pInputText [(ngModel)]="orders[selectedOrderIndex].netAmount"><br>
-    <p><b>Discount</b></p>
-    <input type="text" pInputText [(ngModel)]="orders[selectedOrderIndex].discount"><br>
-    <p><b>Gross</b></p>
-    <input type="text" pInputText [(ngModel)]="orders[selectedOrderIndex].gross"><br><br>
-    <button pButton pRipple type="button" label="Submit" class="p-button-outlined" (click)="hideUpdateDialog()"></button>
+    <div class="p-grid">
+        <div class="p-col-6">
+            <p><b>Movie ID</b></p>
+            <input type="text" pInputText [(ngModel)]="editedOrder.movieId"><br>
+            <p><b>Date</b></p>
+            <input type="text" pInputText [(ngModel)]="editedOrder.date"><br>
+        </div>
+        <div class="p-col-6">
+            <p><b>Net amount</b></p>
+            <input type="text" pInputText [(ngModel)]="editedOrder.netAmount"><br>
+            <p><b>Discount</b></p>
+            <input type="text" pInputText [(ngModel)]="editedOrder.discount"><br>
+            <p><b>Gross</b></p>
+            <input type="text" pInputText [(ngModel)]="editedOrder.gross"><br><br><br>
+        </div>
+    </div>
+    <button pButton pRipple type="button" label="Submit" class="p-button-info p-button-rounded" style="width: 400px" (click)="submitOrderEdition()"></button>
 
     <!-- <ng-template pTemplate="footer">
         <p-button icon="pi pi-check" (click)="displayBasic=false" p="Ok" styleClass="p-button-text"></p-button>

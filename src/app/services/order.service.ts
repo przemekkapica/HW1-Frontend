@@ -12,7 +12,6 @@ export class OrderService {
   
   ordersUrl = 'http://localhost:8080/api/orders';
 
-
   constructor(private http: HttpClient) { }
 
   getOrders(): Observable<Order[]> {
@@ -44,6 +43,10 @@ export class OrderService {
       gross: Math.floor(Math.random() * Math.floor(1000)),
     }
     this.http.post(this.ordersUrl, orderBody).subscribe(() => console.log("Order added"));
+  }
+
+  updateOrder(order: Order) {
+    this.http.put(this.ordersUrl, order).subscribe(() => console.log("Order updated"));
   }
 
 }

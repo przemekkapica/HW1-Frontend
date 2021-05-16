@@ -16,13 +16,18 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { DeveloperViewComponent } from './components/developer-view/developer-view.component';
+import { MovieService } from './services/movie.service';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   declarations: [
     AppComponent,
     OrdersViewComponent,
     MoviesViewComponent,
-    DashboardComponent
+    DashboardComponent,
+    DeveloperViewComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +40,11 @@ import { FormsModule } from '@angular/forms';
     DynamicDialogModule,
     DialogModule,
     InputTextModule,
-    FormsModule
+    FormsModule,
+    TabMenuModule,
+    CardModule
   ],
-  providers: [OrderService],
+  providers: [OrderService, MovieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
