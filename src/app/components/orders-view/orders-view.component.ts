@@ -26,7 +26,6 @@ export class OrdersViewComponent implements OnInit {
   }
 
   showUpdateDialog(index: number): void {    
-    console.log(index);
     this.selectedOrderIndex = index;
     this.editedOrder = this.orders[index];
     this.displayUpdateDialog = true;
@@ -37,7 +36,9 @@ export class OrdersViewComponent implements OnInit {
   }
 
   private getOrders() {
-      this.orderService.getOrders().subscribe((data) => this.orders = data);      
+    this.orderService.getOrders().subscribe((data) =>
+      this.orders = data
+    );      
   }
 
   submitOrderEdition(): void {

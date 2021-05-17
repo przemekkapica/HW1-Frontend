@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeveloperViewComponent implements OnInit {
 
+  rangeDates: Date[] = [];
+  
   constructor() { }
 
   ngOnInit(): void {

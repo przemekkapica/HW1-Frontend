@@ -9,7 +9,7 @@
             <th>Price</th>
             <th>Ranking</th>
             <th>Genre</th>
-            <th style="width: 7rem;"></th>
+            <th style="width: 7rem;"><button pButton pRipple type="button" label="Filter" class="p-button-secondary p-button-rounded" (click)="showFilterDialog()" ></button></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-movie let-i="rowIndex">
@@ -24,3 +24,28 @@
         </tr>
     </ng-template>
 </p-table>
+
+<p-dialog header="Filter movies" [(visible)]="displayFilterDialog" [style]="{width: '70vw'}" [baseZIndex]="10000" [modal]="true">
+
+    <div class="p-grid">
+        <div class="p-col-6">
+            <p><b>Start date</b> (yyyy-mm-dd)</p>
+            <input type="text" pInputText [(ngModel)]="startDate"><br>
+            <p><b>End date</b> (yyyy-mm-dd)</p>
+            <input type="text" pInputText [(ngModel)]="endDate"><br>
+        </div>
+        <div class="p-col-6">
+            <p><b>Movie name keyword</b></p>
+            <input type="text" pInputText [(ngModel)]="nameKeyword"><br>
+            <p><b>Genre</b> (Drama, Adventure, Thriller, Action)</p>
+            <input type="text" pInputText [(ngModel)]="genre"><br>
+            <p><b>Minimum ranking</b> (1-10)</p>
+            <input type="text" pInputText [(ngModel)]="minimumRanking"><br><br><br>
+        </div>
+    </div>
+    <button pButton pRipple type="button" label="Filter" class="p-button-info p-button-rounded" style="width: 400px" (click)="filterMovies()"></button>
+
+    <!-- <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="displayBasic=false" p="Ok" styleClass="p-button-text"></p-button>
+    </ng-template> -->
+</p-dialog>

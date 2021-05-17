@@ -20,6 +20,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { DeveloperViewComponent } from './components/developer-view/developer-view.component';
 import { MovieService } from './services/movie.service';
 import { CardModule } from 'primeng/card';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { CardModule } from 'primeng/card';
     InputTextModule,
     FormsModule,
     TabMenuModule,
-    CardModule
+    CardModule,
+    CalendarModule
   ],
   providers: [OrderService, MovieService],
   bootstrap: [AppComponent]

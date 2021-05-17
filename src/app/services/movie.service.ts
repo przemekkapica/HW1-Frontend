@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Movie } from '../model/movie';
+import { MovieRequest } from '../model/movie-request';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,8 @@ export class MovieService {
 
   constructor(private http: HttpClient) { }
 
-  getFilteredMovies() {
-
+  getFilteredMovies(movieRequest: MovieRequest): Observable<Movie[]> {
+    return this.http.post<Movie[]>(this.moviesUrl, movieRequest);
   }
 
   getAllMovies(): Observable<Movie[]> {
